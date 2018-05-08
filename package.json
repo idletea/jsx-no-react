@@ -1,0 +1,10 @@
+{
+  "name": "jsx-no-react",
+  "version": "0.1.1",
+  "description": "Use JSX without React",
+  "main": "module.js",
+  "repository": "https://github.com/dtkerr/jsx-no-react",
+  "author": "Terry Kerr <t@xnr.ca>",
+  "license": "MPL-2.0",
+  "private": false
+}
