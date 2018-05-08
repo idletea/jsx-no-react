@@ -10,7 +10,7 @@ export default function(tag, attrs, ...children) {
   }
 
   for (let child of children) {
-    if (child.nodeType === undefined) {
+    if (! child instanceof Node) {
       child = document.createTextNode(child.toString());
     }
     elem.appendChild(child);
