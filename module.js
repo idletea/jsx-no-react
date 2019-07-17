@@ -5,7 +5,11 @@ export default function(tag, attrs, ...children) {
   for (let [attr, value] of Object.entries(attrs)) {
     if (value === true) elem.setAttribute(attr, attr);
     else if (value !== false && value !== null) {
-      elem.setAttribute(attr, value.toString());
+      if (attr === "onclick") {
+        elem.addEventListener("click", value);
+      } else {
+        elem.setAttribute(attr, value.toString);
+      }
     }
   }
 
