@@ -13,7 +13,7 @@ import jsxElem from 'jsx-no-react';
 <div>just do jsx as usual here</div>;
 ```
 
-you'll also need to hook the `jsxElem` function into the JSX transformation, for which you should probably [babel](https://www.npmjs.com/package/babel-plugin-transform-react-jsx) which you can install and setup fairly simply:
+you'll also need to hook the `jsxElem` function into the JSX transformation, for which you should probably use [babel](https://www.npmjs.com/package/babel-plugin-transform-react-jsx), which you can install and setup fairly simply:
 
 ```sh
 yarn add babel-plugin-transform-react-jsx babel-preset-env
