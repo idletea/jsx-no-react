@@ -8,7 +8,7 @@ export default function(tag, attrs, ...children) {
       if (attr === "onclick") {
         elem.addEventListener("click", value);
       } else {
-        elem.setAttribute(attr, value.toString);
+        elem.setAttribute(attr, value.toString());
       }
     }
   }
@@ -21,4 +21,4 @@ export default function(tag, attrs, ...children) {
   }
 
   return elem;
-};
+}
