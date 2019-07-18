@@ -1,6 +1,6 @@
 {
   "name": "jsx-no-react",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Use JSX without React",
   "main": "module.js",
   "repository": "https://github.com/dtkerr/jsx-no-react",
