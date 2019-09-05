@@ -1,3 +1,17 @@
+function appendChild(elem, children) {
+  if(children instanceof Array) {
+    children.map((child) => appendChild(elem, child));
+    return;
+  }
+
+  let child = children;
+  if (!(child instanceof Node)) {
+    child = document.createTextNode(child.toString());
+  }
+
+  elem.appendChild(child);
+}
+
 export default function(tag, attrs, ...children) {
   let elem = document.createElement(tag);
 
@@ -14,10 +28,7 @@ export default function(tag, attrs, ...children) {
   }
 
   for (let child of children) {
-    if (!(child instanceof Node)) {
-      child = document.createTextNode(child.toString());
-    }
-    elem.appendChild(child);
+    appendChild(elem, child);
   }
 
   return elem;
