@@ -44,7 +44,7 @@ export default function(tag, attrs, ...children) {
   for (let [attr, value] of Object.entries(attrs)) {
     if (value === true) elem.setAttribute(attr, attr);
     else if(attr.startsWith('on') && typeof value === 'function') {
-      elem.addEventListener(attr.substr(2), value);
+      elem.addEventListener(attr.substr(2).toLowerCase(), value);
     }
     else if (value !== false && value !== null && value !== undefined) {
       if(value instanceof Object) {
@@ -57,8 +57,8 @@ export default function(tag, attrs, ...children) {
         ).join('; ');
       }
 
-      if(attr === 'className')
-        elem.classList.add(value.toString());
+      if(attr === 'className' && value !== '')
+        elem.classList.add(...value.toString().trim().split(' '));
       else
         elem.setAttribute(attr, value.toString());
     }
