@@ -70,7 +70,12 @@ const Hello = (props) => <h1>Hello {props.name}</h1>;
 // simple element
 const hello = <h1>Hello</h1>;
 ```
-> **Always start component names with a capital letter.**
+> **Always start component names with a capital letter.**  
+> babel-plugin-transform-react-jsx treats components starting with lowercase letters as DOM tags.  
+> For example ```<div />``` is an HTML tag, but ```<Hello />``` is a component and requires a user definition.  
+>
+> Please read [JSX In Depth](https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized)
+> and try [babel example](https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=GYVwdgxgLglg9mABBOBbADggpmKAKASkQG8AoRASACcsoQqlEAeACSwBt25EB6APgDcpAL6lSoSLASIOWVDnxEylGnQaJmACw5degkUA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env&prettier=false&targets=&version=7.5.5&externalPlugins=babel-plugin-transform-react-jsx%406.24.1)
 
 #### Rendering
 When rendering a component, defined by user, JSX attributes will be passed as single object.
