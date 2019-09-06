@@ -33,6 +33,10 @@ function createElement(elem, attrs) {
   return document.createElement(elem);
 }
 
+export function render(elem, parent) {
+  parent.insertAdjacentElement('afterbegin', elem);
+}
+
 export default function(tag, attrs, ...children) {
   const elem = createElement(tag, attrs);
 
