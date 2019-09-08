@@ -4,7 +4,10 @@
   "description": "Use JSX without React",
   "repository": "https://github.com/bitboxer/jsx-no-react",
   "author": "Terry Kerr <t@xnr.ca>",
-  "contributors": ["Bodo Tasche <bodo@wannawork.de>"],
+  "contributors": [
+    "Bodo Tasche <bodo@wannawork.de>",
+    "Matteo Barison <info@matteobarison.com>"
+  ],
   "license": "MPL-2.0",
   "private": false,
   "main": "lib/module.js",
