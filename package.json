@@ -12,11 +12,15 @@
   "private": false,
   "main": "dist/module.js",
   "scripts": {
-    "build": "babel src/module.js --out-dir dist"
+    "build": "babel src/module.js --out-dir dist",
+    "test": "jest"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
-    "@babel/cli": "^7.5.5"
+    "babel-jest": "^24.9.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "jest": "^24.9.0"
   }
 }
