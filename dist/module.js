@@ -42,22 +42,33 @@ function appendChild(elem, children) {
 }
 
 function splitCamelCase(str) {
-  return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+  return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
 function createElement(elem, attrs) {
-  if (typeof elem.render === 'function') return elem.render();
-  if (elem instanceof Function) return elem(attrs);
-  if (elem instanceof HTMLElement) return elem;
-  return document.createElement(elem);
+  if (typeof elem.render === "function") {
+    return elem.render();
+  }
+
+  if (elem instanceof Function) {
+    return elem(attrs);
+  }
+
+  if (elem instanceof HTMLElement) {
+    addAttributes(elem, attrs);
+    return elem;
+  }
+
+  var element = document.createElement(elem);
+  addAttributes(element, attrs);
+  return element;
 }
 
 function render(elem, parent) {
-  parent.insertAdjacentElement('afterbegin', elem);
+  parent.insertAdjacentElement("afterbegin", elem);
 }
 
-function _default(tag, attrs) {
-  var elem = createElement(tag, attrs);
+function addAttributes(elem, attrs) {
   if (attrs === null || attrs === undefined) attrs = {};
 
   for (var _i = 0, _Object$entries = Object.entries(attrs); _i < _Object$entries.length; _i++) {
@@ -65,14 +76,14 @@ function _default(tag, attrs) {
         attr = _Object$entries$_i[0],
         value = _Object$entries$_i[1];
 
-    if (value === true) elem.setAttribute(attr, attr);else if (attr.startsWith('on') && typeof value === 'function') {
+    if (value === true) elem.setAttribute(attr, attr);else if (attr.startsWith("on") && typeof value === "function") {
       elem.addEventListener(attr.substr(2).toLowerCase(), value);
     } else if (value !== false && value !== null && value !== undefined) {
       var _elem$classList;
 
       if (value instanceof Object) {
         (function () {
-          var modifier = attr === 'style' ? splitCamelCase : function (str) {
+          var modifier = attr === "style" ? splitCamelCase : function (str) {
             return str.toLowerCase();
           };
           value = Object.entries(value).map(function (_ref) {
@@ -81,13 +92,17 @@ function _default(tag, attrs) {
                 val = _ref2[1];
 
             return "".concat(modifier(key), ": ").concat(val);
-          }).join('; ');
+          }).join("; ");
         })();
       }
 
-      if (attr === 'className' && value !== '') (_elem$classList = elem.classList).add.apply(_elem$classList, _toConsumableArray(value.toString().trim().split(' ')));else elem.setAttribute(attr, value.toString());
+      if (attr === "className" && value !== "") (_elem$classList = elem.classList).add.apply(_elem$classList, _toConsumableArray(value.toString().trim().split(" ")));else elem.setAttribute(attr, value.toString());
     }
   }
+}
+
+function _default(tag, attrs) {
+  var elem = createElement(tag, attrs);
 
   for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     children[_key - 2] = arguments[_key];

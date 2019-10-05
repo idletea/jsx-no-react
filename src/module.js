@@ -1,9 +1,8 @@
 function appendChild(elem, children) {
-  if(!children || children === undefined)
-    return;
+  if (!children || children === undefined) return;
 
-  if(children instanceof Array) {
-    children.map((child) => appendChild(elem, child));
+  if (children instanceof Array) {
+    children.map(child => appendChild(elem, child));
     return;
   }
 
@@ -17,52 +16,61 @@ function appendChild(elem, children) {
 }
 
 function splitCamelCase(str) {
-  return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+  return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
 function createElement(elem, attrs) {
-  if(typeof elem.render === 'function')
+  if (typeof elem.render === "function") {
     return elem.render();
-
-  if(elem instanceof Function)
+  }
+  if (elem instanceof Function) {
     return elem(attrs);
-
-  if(elem instanceof HTMLElement)
+  }
+  if (elem instanceof HTMLElement) {
+    addAttributes(elem, attrs);
     return elem;
+  }
 
-  return document.createElement(elem);
+  const element = document.createElement(elem);
+  addAttributes(element, attrs);
+
+  return element;
 }
 
 export function render(elem, parent) {
-  parent.insertAdjacentElement('afterbegin', elem);
+  parent.insertAdjacentElement("afterbegin", elem);
+}
+
+function addAttributes(elem, attrs) {
+  if (attrs === null || attrs === undefined) attrs = {};
+  for (let [attr, value] of Object.entries(attrs)) {
+    if (value === true) elem.setAttribute(attr, attr);
+    else if (attr.startsWith("on") && typeof value === "function") {
+      elem.addEventListener(attr.substr(2).toLowerCase(), value);
+    } else if (value !== false && value !== null && value !== undefined) {
+      if (value instanceof Object) {
+        const modifier =
+          attr === "style" ? splitCamelCase : str => str.toLowerCase();
+
+        value = Object.entries(value)
+          .map(([key, val]) => `${modifier(key)}: ${val}`)
+          .join("; ");
+      }
+
+      if (attr === "className" && value !== "")
+        elem.classList.add(
+          ...value
+            .toString()
+            .trim()
+            .split(" ")
+        );
+      else elem.setAttribute(attr, value.toString());
+    }
+  }
 }
 
 export default function(tag, attrs, ...children) {
   const elem = createElement(tag, attrs);
-
-  if (attrs === null || attrs === undefined) attrs = {};
-  for (let [attr, value] of Object.entries(attrs)) {
-    if (value === true) elem.setAttribute(attr, attr);
-    else if(attr.startsWith('on') && typeof value === 'function') {
-      elem.addEventListener(attr.substr(2).toLowerCase(), value);
-    }
-    else if (value !== false && value !== null && value !== undefined) {
-      if(value instanceof Object) {
-        const modifier = attr === 'style' ?
-          splitCamelCase :
-          (str) => str.toLowerCase();
-
-        value = Object.entries(value).map(
-          ([key, val]) => `${modifier(key)}: ${val}`
-        ).join('; ');
-      }
-
-      if(attr === 'className' && value !== '')
-        elem.classList.add(...value.toString().trim().split(' '));
-      else
-        elem.setAttribute(attr, value.toString());
-    }
-  }
 
   for (const child of children) {
     appendChild(elem, child);
