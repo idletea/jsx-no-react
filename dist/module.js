@@ -101,8 +101,9 @@ function addAttributes(elem, attrs) {
   }
 }
 
-function _default(tag, attrs) {
-  var elem = createElement(tag, attrs);
+var createAndAppendSVG = function createAndAppendSVG(tag, attrs) {
+  var element = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  addAttributes(element, attrs);
 
   for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     children[_key - 2] = arguments[_key];
@@ -110,6 +111,50 @@ function _default(tag, attrs) {
 
   for (var _i2 = 0, _children = children; _i2 < _children.length; _i2++) {
     var child = _children[_i2];
+    var childElement = document.createElementNS('http://www.w3.org/2000/svg', child.nodeName.toLowerCase());
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+      for (var _iterator = child.attributes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        var attribute = _step.value;
+        childElement.setAttributeNS(null, attribute.nodeName, attribute.nodeValue);
+      }
+    } catch (err) {
+      _didIteratorError = true;
+      _iteratorError = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+          _iterator["return"]();
+        }
+      } finally {
+        if (_didIteratorError) {
+          throw _iteratorError;
+        }
+      }
+    }
+
+    appendChild(element, childElement);
+  }
+
+  return element;
+};
+
+function _default(tag, attrs) {
+  for (var _len2 = arguments.length, children = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+    children[_key2 - 2] = arguments[_key2];
+  }
+
+  if (tag === "svg") {
+    return createAndAppendSVG.apply(void 0, [tag, attrs].concat(children));
+  }
+
+  var elem = createElement(tag, attrs);
+
+  for (var _i3 = 0, _children2 = children; _i3 < _children2.length; _i3++) {
+    var child = _children2[_i3];
     appendChild(elem, child);
   }
 
