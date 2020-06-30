@@ -40,6 +40,17 @@ describe("jsxElement usage", () => {
     );
   });
 
+  it("renders a svg with the correct namespace", () => {
+    const element = (
+      <svg><container /></svg>
+    );
+
+    expect(element.outerHTML).toEqual(
+      '<svg><container></container></svg>'
+    );
+    expect(element.namespaceURI).toEqual("http://www.w3.org/2000/svg")
+  });
+
   it("sets an attribute if it is true", () => {
     const element = <div className="highlight" required={true} />;
 
