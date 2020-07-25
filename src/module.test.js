@@ -90,6 +90,24 @@ describe("jsxElement usage", () => {
     element.click();
     expect(mockFunction.mock.calls.length).toBe(1);
   });
+
+  it("does not render props as attributes", () => {
+    function Hello(props) {
+      return <h1>Hello {props.name}</h1>;
+    }
+
+    const CustomSeparator = props => (
+      <i>{[...Array(props.dots)].map(idx => ".")}</i>
+    );
+
+    const element =  <div>
+      <Hello name="foo" />
+      <CustomSeparator dots={50} />
+      <Hello name="bar" />
+    </div>;
+
+    expect(element.outerHTML).toEqual("<div><h1>Hello foo</h1><i>..................................................</i><h1>Hello bar</h1></div>");
+  });
 });
 
 describe("render", () => {
