@@ -10,7 +10,8 @@
   ],
   "license": "MPL-2.0",
   "private": false,
-  "main": "dist/module.js",
+  "main": "dist/main.iife.js",
+  "module": "dist/module.es6.js",
   "scripts": {
     "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "test": "jest"

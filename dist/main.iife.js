@@ -1,4 +1,4 @@
-(function (exports) {
+var JSXNoReact = (function (exports) {
   'use strict';
 
   function _slicedToArray(arr, i) {
