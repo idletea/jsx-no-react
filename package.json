@@ -14,7 +14,7 @@
   "module": "dist/module.es6.js",
   "scripts": {
     "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
-    "test": "jest"
+    "test": "yarn run jest"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
